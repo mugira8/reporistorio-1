@@ -7,6 +7,7 @@ public class menuak {
 		abc AJKSVBIJEFBV2EIVIS
 		N OsN OIwdniv ds
 		wkdvnoiurw
+		tercero
 	}
 
 }
