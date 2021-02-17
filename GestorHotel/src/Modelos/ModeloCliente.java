@@ -52,10 +52,10 @@ public class ModeloCliente {
 		return clienteslist;
 	}
 	
-	public void añadirCliente(String dni, String nombre, String apellidos, String direccion, String localidad) {
+	public void aniadirCliente(String dni, String nombre, String apellidos, String direccion, String localidad) {
 		
 		try {
-			PreparedStatement ps = con.getConexion().prepareStatement("INSERT INTO cliente "
+			PreparedStatement ps = con.getConexion().prepareStatement("INSERT INTO clientes "
 					+ "(dni, nombre, apellidos, direccion, localidad) VALUES (?, ?, ?, ?, ?)");
 			
 			ps.setString(1, dni);
@@ -73,7 +73,7 @@ public class ModeloCliente {
 	public void eliminarCliente(String busqueda) {
 		
 		try {
-			PreparedStatement ps = con.getConexion().prepareStatement("DELETE FROM cliente WHERE dni=?");
+			PreparedStatement ps = con.getConexion().prepareStatement("DELETE FROM clientes WHERE dni=?");
 			
 			ps.setString(1, busqueda);
 			
@@ -84,15 +84,16 @@ public class ModeloCliente {
 		
 	}
 	
-	public void editarCliente (String busqueda, String nombre, String apellidos, String direccion, String localidad) {
+	public void editarCliente (String dni, String nombre, String apellidos, String direccion, String localidad) {
 		try {
-			PreparedStatement ps = con.getConexion().prepareStatement("UPDATE cliente SET nombre=?,  WHERE dni=?");
+			PreparedStatement ps = con.getConexion().prepareStatement("UPDATE clientes SET nombre=?, apellidos=?, "
+					+ "direccion=?, localidad=?  WHERE dni=?");
 			
 			ps.setString(1, nombre);
 			ps.setString(2, apellidos);
 			ps.setString(3, direccion);
 			ps.setString(4, localidad);
-			ps.setString(5, busqueda);
+			ps.setString(5, dni);
 		}catch(SQLException e) {
 			e.printStackTrace();
 		}
