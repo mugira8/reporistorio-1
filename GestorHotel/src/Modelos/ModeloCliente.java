@@ -1,11 +1,12 @@
 package Modelos;
-import java.util.*; 
+import java.util.*;  
 import java.sql.*;
 import Objetuak.*;
 import Conexion.*;
 public class ModeloCliente {
 
 	Conector con = new Conector();
+	Cliente c = new Cliente();
 	
 	public ArrayList<Cliente> listarClientes(){
 		ArrayList<Cliente> clienteslist = new ArrayList<Cliente>();
@@ -52,7 +53,10 @@ public class ModeloCliente {
 		return clienteslist;
 	}
 	
-	public void aniadirCliente(String dni, String nombre, String apellidos, String direccion, String localidad) {
+	public boolean aniadirCliente(String dni, String nombre, String apellidos, String direccion, String localidad) {
+		
+		int numLineas;
+		boolean ejecutado = false;
 		
 		try {
 			PreparedStatement ps = con.getConexion().prepareStatement("INSERT INTO clientes "
@@ -64,10 +68,21 @@ public class ModeloCliente {
 			ps.setString(4, direccion);
 			ps.setString(5, localidad);
 			
-			ResultSet rs = ps.executeQuery();
+			numLineas = ps.executeUpdate();
+			
+			if (numLineas>0) {
+				ejecutado = true;
+			}
+			else {
+				ejecutado = false;
+			}
+			
+			
 		}catch(SQLException e) {
 			e.printStackTrace();
 		}
+		
+		return ejecutado;
 	}
 	
 	public void eliminarCliente(String busqueda) {
@@ -77,7 +92,8 @@ public class ModeloCliente {
 			
 			ps.setString(1, busqueda);
 			
-			ResultSet rs = ps.executeQuery();
+			ps.executeUpdate();
+			
 		}catch(SQLException e) {
 			e.printStackTrace();
 		}
@@ -94,8 +110,11 @@ public class ModeloCliente {
 			ps.setString(3, direccion);
 			ps.setString(4, localidad);
 			ps.setString(5, dni);
+			
+			ps.executeUpdate();
 		}catch(SQLException e) {
 			e.printStackTrace();
 		}
 	}
+	
 }

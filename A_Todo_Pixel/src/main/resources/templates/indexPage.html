@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="ISO-8859-1">
+<title>A Todo Pixel</title>
+<link rel="stylesheet" href="/webjars/bootstrap/css/bootstrap.css">
+</head>
+<body>
+	<h1 th:text="${datetime}"></h1>
+	<h2 class="container">Hola mundo! 1</h2>
+	<ul th:each="item:${objetos}">
+		<li th:text="${item.name}"></li>
+	</ul>
+
+	<script src="/webjars/bootstrap/js/bootstrap.js"></script>
+</body>
+</html>

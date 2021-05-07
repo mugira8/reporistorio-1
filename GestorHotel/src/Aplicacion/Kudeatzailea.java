@@ -1,6 +1,21 @@
 package Aplicacion;
+import java.sql.*;
+import java.util.*;
+
+import Conexion.Conector;
+
 
 public class Kudeatzailea {
+	
+	Scanner input = new Scanner (System.in);
+	Conector con = new Conector();
+	
+	public void menuLogin() {
+		System.out.println("============== Menu ==============\r\n"
+				+ "0. Salir\r\n"
+				+ "1. Login\r\n"
+				+ "==================================");
+	}
 	
 	public void menuPrincipal() {
 		
@@ -58,5 +73,40 @@ public class Kudeatzailea {
 				+ "4. Eliminar reserva\r\n"
 				+ "5. Editar reserva\r\n"
 				+ "==================================");
+	}
+	
+	public boolean login() {
+		boolean login = false;
+		String contrasenia, usuario;
+		int i = 0;
+		
+		do {
+		System.out.println("Introduce el nombre de usuario");
+		usuario = input.nextLine();
+		System.out.println("Introduce la contraseña");
+		contrasenia = input.nextLine();
+		try {
+		PreparedStatement ps = con.getConexion().prepareStatement("SELECT * FROM usuario WHERE username=? AND password=?");
+		
+		ps.setString(1, usuario);
+		ps.setString(2, contrasenia);
+		
+		ResultSet rs = ps.executeQuery();
+		
+		if (rs.next()) {
+			login = true;
+			return login;
+		}
+		else {
+			i++;
+		}
+		}catch(SQLException e) {
+			e.printStackTrace();
+		}
+		
+		} while(i <= 2);
+		
+		login = false;
+		return login;
 	}
 }
