@@ -4,6 +4,7 @@ import java.util.*;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.jdbc.support.rowset.SqlRowSet;
 
 import com.atodopixel.model.bean.Juego;
 
@@ -21,6 +22,10 @@ public class JuegoModel {
 	public List<Juego> selectJuegos(){
 		List<Juego> juegos = new ArrayList<Juego>();
 		
-		return null;
+		String sql = "SELECT * FROM juego";
+		
+		SqlRowSet rs =  db.queryForRowSet(sql);
+		
+		return juegos;
 	}
 }
